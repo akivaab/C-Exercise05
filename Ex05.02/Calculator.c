@@ -46,7 +46,7 @@ Operation ReadOperation(void)
     Operation op;
     char opType;
     printf_s("Choose an operation: add (a), subtract (s), multiply (m), divide (d), exit (e) ");
-    scanf_s(" %c", &opType);
+    scanf_s(" %c", &opType, 1);
     
     switch (opType)
     {
@@ -83,7 +83,7 @@ void Calculator(void)
     char number1Type, number2Type;
 
     printf_s("Choose a number type: real (r) or complex (c) ");
-    scanf_s(" %c", &number1Type);
+    scanf_s(" %c", &number1Type, 1);
     Number operand1 = ReadNumber(number1Type);
 
     Operation operation = ReadOperation();
@@ -91,7 +91,7 @@ void Calculator(void)
     while (operation != exit)
     {
         printf_s("Choose a number type: real (r) or complex (c) ");
-        scanf_s(" %c", &number2Type);
+        scanf_s(" %c", &number2Type, 1);
         Number operand2 = ReadNumber(number2Type);
 
 
@@ -171,7 +171,10 @@ Number CalculateRealAndComplex(Operation operation, Number operand1, Number oper
         break;
 
     case divide:
-        /*MISSING*/
+        result.complex.real = ((float)operand1.real * operand2.complex.real) /
+                              (operand2.complex.real * operand2.complex.real) + (operand2.complex.imaginary * operand2.complex.imaginary);
+        result.complex.imaginary = ((float)operand1.real * operand2.complex.imaginary) /
+                                   (operand2.complex.real * operand2.complex.real) + (operand2.complex.imaginary * operand2.complex.imaginary);
         break;
 
     default:
@@ -235,12 +238,15 @@ Number CalculateTwoComplexes(Operation operation, Number operand1, Number operan
         break;
 
     case multiply:
-        result.complex.real = (operand1.complex.real * operand2.complex.real) + (operand1.complex.imaginary * operand2.complex.imaginary);
+        result.complex.real = (operand1.complex.real * operand2.complex.real) + -(operand1.complex.imaginary * operand2.complex.imaginary);
         result.complex.imaginary = (operand1.complex.real * operand2.complex.imaginary) + (operand1.complex.imaginary * operand2.complex.real);
         break;
 
     case divide:
-        /*MISSING*/
+        result.complex.real = ((operand1.complex.real * operand2.complex.real) + (operand1.complex.imaginary * operand2.complex.imaginary)) /
+                              ((operand2.complex.real * operand2.complex.real) + (operand2.complex.imaginary * operand2.complex.imaginary));
+        result.complex.imaginary = ((operand1.complex.imaginary * operand2.complex.real) - (operand1.complex.real * operand2.complex.imaginary)) /
+                                   ((operand2.complex.real * operand2.complex.real) + (operand2.complex.imaginary * operand2.complex.imaginary));
         break;
 
     default:
