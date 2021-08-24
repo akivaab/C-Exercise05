@@ -23,7 +23,7 @@
     <ClCompile Include="Dogs.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Program.c">
+    <ClCompile Include="Program01.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
