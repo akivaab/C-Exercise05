@@ -1,17 +1,25 @@
 #include <stdio.h>
 #include "Calculator.h"
 
+#define REAL 'r'
+#define COMPLEX 'c'
+#define ADD 'a'
+#define SUB 's'
+#define MULT 'm'
+#define DIV 'd'
+#define EXIT 'e'
+
 Number ReadNumber(char numType)
 {
     Number operand;
 
     switch (numType)
     {
-    case 'r':
+    case REAL:
         operand.real = ReadDouble();
         break;
 
-    case 'c':
+    case COMPLEX:
         printf_s("enter the real value: ");
         operand.complex.real = ReadFloat();
         printf_s("enter the imaginary value: ");
@@ -19,6 +27,7 @@ Number ReadNumber(char numType)
         break;
 
     default:
+        printf_s("Fine, be difficult. We'll just make it zero and call it a day.\n");
         operand.real = 0;
         break;
     }
@@ -50,27 +59,28 @@ Operation ReadOperation(void)
     
     switch (opType)
     {
-    case 'a':
+    case ADD:
         op = add;
         break;
 
-    case 's':
+    case SUB:
         op = subtract;
         break;
 
-    case 'm':
+    case MULT:
         op = multiply;
         break;
 
-    case 'd':
+    case DIV:
         op = divide;
         break;
 
-    case 'e':
+    case EXIT:
         op = exit;
         break;
 
     default:
+        printf_s("Fine, be difficult. We'll just go then.\n");
         op = exit;
         break;
     }
@@ -96,22 +106,26 @@ void Calculator(void)
 
         Number result;
         result.real = 0;
-        if (number1Type == 'r' && number2Type == 'r')
+        if (number1Type == REAL && number2Type == REAL)
         {
             result = CalculateTwoReals(operation, operand1, operand2);
         }
-        else if (number1Type == 'r' && number2Type == 'c')
+        else if (number1Type == REAL && number2Type == COMPLEX)
         {
             result = CalculateRealAndComplex(operation, operand1, operand2);
             number1Type = 'c';
         }
-        else if (number1Type == 'c' && number2Type == 'r')
+        else if (number1Type == COMPLEX && number2Type == REAL)
         {
             result = CalculateComplexAndReal(operation, operand1, operand2);
         }
-        else if (number1Type == 'c' && number2Type == 'c')
+        else if (number1Type == COMPLEX && number2Type == COMPLEX)
         {
             result = CalculateTwoComplexes(operation, operand1, operand2);
+        }
+        else
+        {
+            printf_s("Well you sure made a mess of things.\n");
         }
 
         operand1 = result;
@@ -142,6 +156,7 @@ Number CalculateTwoReals(Operation operation, Number operand1, Number operand2)
         break;
 
     default:
+        printf_s("Fine, be difficult. We'll just make it zero and call it a day.\n");
         result.real = 0;
         break;
     }

@@ -11,7 +11,7 @@
 typedef struct Dog_t
 {
     char *name;
-    int kg;
+    double kg;
 } Dog;
 
 /**
@@ -36,7 +36,7 @@ void SortBySize(Dog *dogs, size_t size);
  * @param dog1 the first dog
  * @param dog2 the second dog
  * 
- * @return an integer reflecting which dog's name has lexicographical precedence
+ * @return an integer reflecting which dog's name has lexicographical precedence ( <0 : dog1 is less, >0 : dog2 is less, 0 : they're equal) 
 */
 int NameComparator(Dog *dog1, Dog *dog2);
 
@@ -46,9 +46,9 @@ int NameComparator(Dog *dog1, Dog *dog2);
  * @param dog1 the first dog
  * @param dog2 the second dog
  *
- * @return an integer reflecting which dog's name is larger
+ * @return a double reflecting which dog weighs more ( <0 : dog1 is less, >0 : dog2 is less, 0 : they're equal) 
 */
-int SizeComparator(Dog *dog1, Dog *dog2);
+double SizeComparator(Dog *dog1, Dog *dog2);
 
 /**
  * @brief Prints the array of dogs, each in the form [name, kg].
