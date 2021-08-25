@@ -94,7 +94,6 @@ void Calculator(void)
         scanf_s(" %c", &number2Type, 1);
         Number operand2 = ReadNumber(number2Type);
 
-
         Number result;
         result.real = 0;
         if (number1Type == 'r' && number2Type == 'r')
@@ -114,6 +113,7 @@ void Calculator(void)
         {
             result = CalculateTwoComplexes(operation, operand1, operand2);
         }
+
         operand1 = result;
         operation = ReadOperation();
     }
@@ -145,6 +145,7 @@ Number CalculateTwoReals(Operation operation, Number operand1, Number operand2)
         result.real = 0;
         break;
     }
+
     printf_s("result: %lf\n", result.real);
     return result;
 }
@@ -172,9 +173,9 @@ Number CalculateRealAndComplex(Operation operation, Number operand1, Number oper
 
     case divide:
         result.complex.real = ((float)operand1.real * operand2.complex.real) /
-                              (operand2.complex.real * operand2.complex.real) + (operand2.complex.imaginary * operand2.complex.imaginary);
+                              ((operand2.complex.real * operand2.complex.real) + (operand2.complex.imaginary * operand2.complex.imaginary));
         result.complex.imaginary = ((float)operand1.real * operand2.complex.imaginary) /
-                                   (operand2.complex.real * operand2.complex.real) + (operand2.complex.imaginary * operand2.complex.imaginary);
+                                   ((operand2.complex.real * operand2.complex.real) + (operand2.complex.imaginary * operand2.complex.imaginary));
         break;
 
     default:
@@ -182,6 +183,7 @@ Number CalculateRealAndComplex(Operation operation, Number operand1, Number oper
         result.complex.imaginary = 0;
         break;
     }
+
     printf_s("result: %f + %fi\n", result.complex.real, result.complex.imaginary);
     return result;
 }
@@ -217,6 +219,7 @@ Number CalculateComplexAndReal(Operation operation, Number operand1, Number oper
         result.complex.imaginary = 0;
         break;
     }
+
     printf_s("result: %f + %fi\n", result.complex.real, result.complex.imaginary);
     return result;
 }
@@ -253,6 +256,7 @@ Number CalculateTwoComplexes(Operation operation, Number operand1, Number operan
         result.real = 0;
         break;
     }
+
     printf_s("result: %f + %fi\n", result.complex.real, result.complex.imaginary);
     return result;
 }
